@@ -5,7 +5,8 @@ Logo.propTypes ={
 }
     return (
         <img className="header_logo" 
-        style={{width:`${size}px`} } 
+        style={{width:`${size}px`, cursor:'pointer'} } 
+        onClick={ ()=> alert('homePage') }
         src="https://www.creativefabrica.com/wp-content/uploads/2020/09/10/furniture-sofa-logo-designs-illustration-Graphics-5394606-1-1-580x387.jpg" 
         alt="img" />   
     )

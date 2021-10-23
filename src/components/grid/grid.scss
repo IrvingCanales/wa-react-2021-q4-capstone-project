@@ -24,12 +24,26 @@
 
 
 @media screen and (max-width: 800px) {
-    .grid{
-        
+    .grid{        
         display: grid;
 		grid-template-columns: repeat(2, 1fr);
-        object-fit: cover;
+        object-fit: cover;        
 		gap: 20px;
         padding: 10px;
     }
+
+    .card-grid{
+        margin: 2px;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    
+    .grid{        
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    object-fit: cover; 		
+    
+    }
+
 }

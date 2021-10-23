@@ -1,0 +1,17 @@
+.productList{
+    display: flex;
+}
+
+@media screen and (max-width: 500px) {
+    
+    .productList{        
+        display: list-item;
+
+        &.grid{
+            width: 96%;
+            height: 100px;
+        }
+       
+    }
+
+}

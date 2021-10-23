@@ -1,12 +1,12 @@
 import PropTypes from "prop-types"
 ImageCarousel.propTypes = {
     url: PropTypes.string,
-    index: PropTypes.number
+    id: PropTypes.string
 }
-export default function ImageCarousel({url,index}){    
+export default function ImageCarousel({url,id}){    
     return (
-        <div key={index}>
-            <img src={url} alt="Wizeline" className="image" key={index}></img>
+        <div key={id}>
+            <img src={url} alt="Wizeline" className="image" ></img>
         </div>
     )
 }
