@@ -1,6 +1,7 @@
 
-import { useEffect } from "react";
-import { useState } from "react/cjs/react.development";
+import { useEffect,useState } from "react";
+
+
 import GridProductsList from "../../../components/GridProductsList/GridProductsList";
 import Loading from "../../../components/loading/loading";
 import Pagination from "../../../components/pagination/pagination";
