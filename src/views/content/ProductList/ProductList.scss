@@ -1,11 +1,14 @@
 .productList{
     display: flex;
+    padding: 20px;
 }
 
 @media screen and (max-width: 500px) {
     
-    .productList{        
-        display: list-item;
+    .productList{
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        object-fit: cover;
 
         &.grid{
             width: 96%;
@@ -13,5 +16,7 @@
         }
        
     }
+
+    
 
 }
