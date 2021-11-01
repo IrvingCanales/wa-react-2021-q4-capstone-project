@@ -2,29 +2,43 @@
 import './App.css';
 import Header from './components/header/Header'
 import Footer from './components/footer/Footer'
-import { useState } from 'react';
 import Home from './views/content/Home';
 import ProductList from './views/content/ProductList/ProductList';
+import { BrowserRouter,Switch,Route} from 'react-router-dom';
+import ProductDetails from './components/productDetails/productDetails';
+import SearchResult from './components/searchResult/searchResult';
 
 
-function App() {
-
-  const [page,setPage] = useState(false)
-
-  const rend = page === false ? <Home></Home> : <ProductList></ProductList>
+function App() {   
   
-
-  const handleCallback = (resp) => {    
-    setPage(resp)    
-  }
-
   return (
-    <div className="App">
-      <Header handle={handleCallback}></Header>
-      {rend}      
-      {!page && <button style={{padding:"7px", margin:"10px"}} onClick={()=>setPage(true)}>View all products</button>}
-      <Footer></Footer>
-    </div>
+    <BrowserRouter>
+      <div className="App">
+      <Header ></Header>
+      <Switch>
+          <Route exact path="/">
+            <Home></Home>  
+          </Route>
+          <Route path="/home">
+            <Home></Home>  
+          </Route>
+          <Route path="/products">
+            <ProductList></ProductList>
+          </Route>
+          <Route path="/product/:id">
+            <ProductDetails></ProductDetails>
+          </Route>
+          <Route path="/search">            
+            <SearchResult />
+          </Route>
+          <Route  path="*">
+            <div><h1>Not found</h1></div>  
+          </Route>
+      </Switch>                
+        <Footer></Footer>
+
+      </div>
+    </BrowserRouter>
   );
 }
 

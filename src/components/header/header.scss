@@ -11,6 +11,8 @@
 
 .header_logo{
     margin: 3px;
+    width: 50px;
+    cursor: pointer;
 }
 
 .ipt{
@@ -25,4 +27,34 @@
     height: 35px;
     color: white;
     cursor: pointer;
+}
+
+.btn_header{
+    height: 35px;
+    outline: none;
+    
+}
+
+@media screen and (max-width: 600px) {
+    .btn_header{
+        display: none;
+    }
+
+    .ipt{
+        border-radius: .2rem;
+        width: 200px;
+        height: 30px;
+        border: solid 2px lightgray;; 
+        outline: none;
+       }
+}
+
+@media screen and (max-width: 600px) {
+    .ipt{
+        border-radius: .2rem;
+        width: 100px;
+        height: 30px;
+        border: solid 2px lightgray;; 
+        outline: none;
+       }
 }
