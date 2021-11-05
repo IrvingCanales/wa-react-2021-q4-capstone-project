@@ -12,23 +12,23 @@ import SearchResult from './components/searchResult/searchResult';
 function App() {   
   
   return (
-    <BrowserRouter>
+    <BrowserRouter >
       <div className="App">
       <Header ></Header>
       <Switch>
           <Route exact path="/">
             <Home></Home>  
           </Route>
-          <Route path="/home">
+          <Route exact path="/home">
             <Home></Home>  
           </Route>
-          <Route path="/products">
+          <Route exact path="/products">
             <ProductList></ProductList>
           </Route>
-          <Route path="/product/:id">
+          <Route exact path="/product/:id">
             <ProductDetails></ProductDetails>
           </Route>
-          <Route path="/search">            
+          <Route exact path="/search">            
             <SearchResult />
           </Route>
           <Route  path="*">

@@ -19,7 +19,7 @@ export default function CardGrid({url,name,category,price,alt,id,desc}){
             <span>{category}</span>
             <p>${price}</p>
             {desc!==null ? <p>{desc}</p> : null}
-            <button>Add cart</button>
+            <button className="btnCart">Add cart</button>
         </div>
     )
 }

@@ -11,6 +11,7 @@ export default function Header(){
     const handleClick = (e)=>{
         e.preventDefault()
         history.push({pathname:'/search',search:`?q=${search}`})
+       
         setSearch('')
     }
 

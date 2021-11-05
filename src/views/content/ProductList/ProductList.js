@@ -1,5 +1,5 @@
 
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import { useLocation } from "react-router";
 import GridProductsList from "../../../components/GridProductsList/GridProductsList";
 import Siderbar from "../../../components/sidebar/Sidebar";
@@ -15,10 +15,7 @@ export default function ProductList(){
     
     const dispatch = useDispatch();
 
-    useEffect(()=>{
-        console.log('cambio el filter')
-        console.log(filter)
-    },[filter])
+    
     if(category.get("category")!==null && !aux){
         setFilter([...filter,category.get("category").toLocaleLowerCase()])
         
@@ -29,16 +26,11 @@ export default function ProductList(){
     
     
 
-    const handleFilter = (resp,active)=>{
+    const handleFilter = (resp)=>{
         
-        if(active === 'active'){
-            //Quita css de activo en la categoria
-            //const newElement = active ==='active' ? filters.filter(el => el!==resp.toLowerCase()) : resp.toLowerCase();            
-            //setFilters(resp.toLowerCase())    
-        }
-        else{            
+                   
             setFilter(resp)            
-        }        
+                
         
         
     }

@@ -5,6 +5,7 @@ import { useFeaturedBanners } from '../../utils/hooks/useFeaturedBanners'
 import { useState, useEffect } from "react"
 export default function Grid(){
     const [cards, setCards] = useState()
+    const [aux, setAux] = useState(false) 
     //const results = GridData[0].results  
     
     const info = {
@@ -14,8 +15,18 @@ export default function Grid(){
         size:16
     }
     const { data, isLoading } = useFeaturedBanners(info);
-    
-    useEffect(()=>{
+    const results = data.results
+    console.log(results)
+    //const results = data.results
+        
+        
+        if(results!==undefined && !aux){
+            setCards(results.map((card)=>{
+                return <CardGrid key={card.id} id={card.id} url={card.data.mainimage.url} name={card.data.name} category={card.data.category.slug} price={card.data.price} alt={card.data.mainimage.alt}></CardGrid>
+            }))
+            setAux(true)
+        }
+    /*useEffect(()=>{
         //Consume API
         const results = data.results
         
@@ -26,7 +37,7 @@ export default function Grid(){
             }))
         }
         
-    },[isLoading])  
+    },[isLoading])  */
 
     
     return (
