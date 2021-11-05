@@ -10,6 +10,9 @@ export const slice = createSlice({
       
       state.categories.push(action.payload);
     },
+    removeByCategory: (state,action) => {      
+      state.categories = state.categories.filter((category) => category !== action.payload)
+    },
     removeCategory: (state) => {
       
         state.categories=[]
@@ -20,6 +23,7 @@ export const slice = createSlice({
 //Actions
 export const {
   addCategory,
+  removeByCategory,
   removeCategory
 } = slice.actions;
 

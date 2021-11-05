@@ -13,9 +13,21 @@ export default function SearchResult(){
     const search = new URLSearchParams(useLocation().search)
     const [searchParams,setSearchParams] = useState()
     const [cards, setCards] = useState([])
+    const [aux, setAux] = useState(false)
+    const [auxAPI, setAuxAPI] = useState(false)
+    
     const [showCards, setShowCards] = useState([])
     const [,setCurrentPage] = useState(1)
+    const [infoAPI,setInfoAPI] = useState({})
     const [productsPerPage] = useState(20)
+    //const [data,setData] = useState()
+    //const [isLoading,setIsLoading] = useState()
+    const [infoSend, setInfoSend] = useState({
+        type:"product",
+        document: "document.type",
+        extra: `&q=[[fulltext(document,"")]]`,
+        size:40
+    })
     
     
     const info = {
@@ -23,6 +35,15 @@ export default function SearchResult(){
         document: "document.type",
         extra: `&q=[[fulltext(document,"${searchParams}")]]`,
         size:40
+    }
+
+    const renderSearch = ()=>{
+
+        const arr = Object.values(infoAPI)
+        setCards(arr.map((card)=>{
+            return <CardGrid key={card.id} id={card.id} url={card.data.mainimage.url} name={card.data.name} category={card.data.category.slug} price={card.data.price} alt={card.data.mainimage.alt} desc={card.data.short_description}></CardGrid>
+        }))
+        setAux(true)
     }
 
     const paginate = (pageNumber)=>{        
@@ -38,19 +59,39 @@ export default function SearchResult(){
         setShowCards(currentProducts)
 
     }
-    const { data, isLoading } = useFeaturedBanners(info);
 
+    const askInfo = ()=>{
+        
+    }
+
+    useEffect(()=>{
+        askInfo()
+    },[])
+
+    
+    
+    const {data, isLoading} = useFeaturedBanners(info);
     useEffect(()=>{
         
         if(search.get("q")!==null){
             setSearchParams(search.get("q"))
             setCards([])
+            console.log('cambio la busqueda')
         }
         
             
-    },[])
+    },[search.get("q")])
+
+    const results = data.results
+        
+    if(results!==undefined && !auxAPI){
+            console.log(results)
+            setInfoAPI(results.map(res => res))
+            setAuxAPI(true)
+            
+    }
     
-    useEffect(()=>{
+    /*useEffect(()=>{
         //Consume API
         const results = data.results
         
@@ -62,7 +103,11 @@ export default function SearchResult(){
         }
         
         
-    },[isLoading])   
+    },[isLoading])   */
+
+    if(Object.keys(infoAPI).length > 0 && !aux){   
+        renderSearch()
+    }
     
     if(!isLoading && cards.length === 0){
         setCards(<div><h1>No results for {search}</h1></div>)
@@ -83,3 +128,4 @@ export default function SearchResult(){
         </div>
     )
 }
+

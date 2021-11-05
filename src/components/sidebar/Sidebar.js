@@ -3,7 +3,7 @@ import { useFeaturedBanners } from '../../utils/hooks/useFeaturedBanners'
 import { useEffect, useState } from "react"
 import './Sidebar.scss'
 import { useSelector,useDispatch } from "react-redux";
-import { selectCategories,addCategory,removeCategory } from '../../features/categoriesSlice'
+import { selectCategories,addCategory,removeByCategory,removeCategory } from '../../features/categoriesSlice'
 import PropTypes from "prop-types"
 Siderbar.propTypes = {
     handleF: PropTypes.func,
@@ -17,12 +17,20 @@ export default function Siderbar({handleF,filter}){
     const dispatch = useDispatch();
     
     const handleClick = (resp,active)=>{
-        dispatch(addCategory(resp))
+        if(!arrCategories.includes(resp.toLowerCase()))
+            dispatch(addCategory(resp.toLowerCase()))
+        else
+            dispatch(removeByCategory(resp.toLowerCase()))
+
         filter.push(resp.toLowerCase())
         
         //console.log(resp,active)  
         handleF(filter,active)
     }
+
+    useEffect(()=>{
+        renderCategories()
+    },[arrCategories])
 
     
 
@@ -37,7 +45,7 @@ export default function Siderbar({handleF,filter}){
         setCategories(list.map((lis)=>{            
             const active = arrCategories.includes(lis.data.name.toLocaleLowerCase()) ? 'active' : ''
             return (<li key={lis.id}>
-                <a href={() => false} key={lis.id} className={`elements ${active}`} onClick={()=>handleClick(lis.data.name,active)}>{lis.data.name} </a>                
+                <div  key={lis.id} className={`elements ${active}`} onClick={()=>handleClick(lis.data.name,active)}>{lis.data.name} </div>
                 </li>)
         }))
     }

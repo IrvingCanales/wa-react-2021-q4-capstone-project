@@ -5,6 +5,9 @@ import { useEffect, useState } from "react"
 import Loading from '../loading/loading'
 import Pagination from '../pagination/pagination'
 import PropTypes from "prop-types"
+import {selectCategories} from '../../features/categoriesSlice'
+import { useSelector } from 'react-redux'
+
 GridProductsList.propTypes = {
     filter: PropTypes.array,    
 }
@@ -13,16 +16,24 @@ export default function GridProductsList({filter}){
     //const results = GridProductsListData[0].results  
     const [cards, setCards] = useState([])
     const [aux, setAux] = useState(false)
+    const [auxAPI, setAuxAPI] = useState(false)
     const [showCards, setShowCards] = useState([])
     const [,setCurrentPage] = useState(1)
     const [infoAPI,setInfoAPI] = useState({})
     const [productsPerPage] = useState(12)
+    const categories = useSelector(selectCategories);
+
+    
     const info = {
         type:"product",
         document: "document.type",
         extra: '',
         size:50
     }
+
+    useEffect(()=>{
+        renderCategories()        
+    },[categories])
     
     
     useEffect(()=>{
@@ -31,6 +42,24 @@ export default function GridProductsList({filter}){
         setCards([])        
         
     },[filter])
+
+    const renderCategories = ()=>{
+        const arr = Object.values(infoAPI)    
+        
+        const filtrado = categories.length>0 ? arr.filter(lis => categories.includes(lis.data.category.slug)) : arr        
+        
+        setCards(filtrado.map((card) => {
+            return <CardGrid key={card.id} id={card.id}  url={card.data.mainimage.url} name={card.data.name} category={card.data.category.slug} price={card.data.price} alt={card.data.mainimage.alt}></CardGrid>        
+        }))
+
+        if(filtrado.length === 0){
+            setShowCards([])
+            setCards([])
+        }
+            
+        
+        setAux(true)
+    }
 
     
 
@@ -48,17 +77,23 @@ export default function GridProductsList({filter}){
 
     }
     
-    const { data, isLoading } = useFeaturedBanners(info);
-    useEffect(()=>{        
+    const { data, isLoading } = useFeaturedBanners(info);    
+    const results = data.results
+    if(results!==undefined && !auxAPI){
+        setInfoAPI(results.map(res => res))
+        setAuxAPI(true)
+    }
+    /*useEffect(()=>{        
         const results = data.results
         if(results!==undefined){            
             setInfoAPI(results.map(res => res))
         }
         
-    },[isLoading])    
+    },[isLoading])    */
 
     if(Object.keys(infoAPI).length > 0 && !aux){   
-        const arr = Object.values(infoAPI)        
+        /*const arr = Object.values(infoAPI)    
+        console.log('arreglo:',arr)
         const filtrado = filter.length>0 ? arr.filter(lis => filter.includes(lis.data.category.slug)) : arr
         
             
@@ -66,9 +101,8 @@ export default function GridProductsList({filter}){
             return <CardGrid key={card.id} id={card.id}  url={card.data.mainimage.url} name={card.data.name} category={card.data.category.slug} price={card.data.price} alt={card.data.mainimage.alt}></CardGrid>        
         }))
         
-        setAux(true)
-
-        
+        setAux(true)*/
+        renderCategories()
     }
 
     
