@@ -13,7 +13,7 @@ export function useFeaturedBanners(info) {
     data: {},
     isLoading: true,
   }));
-
+  
 
   useEffect(() => {
     if (!apiRef || isApiMetadataLoading) {
@@ -36,20 +36,22 @@ export function useFeaturedBanners(info) {
           }
         )
         
+        
         const data = await response.json();
+        
 
         setFeaturedBanners({ data, isLoading: false });
       } catch (err) {
         setFeaturedBanners({ data: {}, isLoading: false });        
       }
-    }
+    }    
 
     getFeaturedBanners();
 
     return () => {
       controller.abort();
     };
-  }, [apiRef, isApiMetadataLoading]);
+  }, [apiRef, isApiMetadataLoading,info.extra]);
 
   return featuredBanners;
 }

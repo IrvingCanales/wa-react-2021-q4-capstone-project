@@ -43,7 +43,7 @@ export default function Grid(){
     return (
         <>
         <div className="grid">
-            {cards}            
+            {!isLoading ? cards : null}
         </div>        
         </>
     )

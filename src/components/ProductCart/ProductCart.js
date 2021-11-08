@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useDispatch } from "react-redux"
-import { addSubTotal,removeById,updateCart,updateSubTotal } from "../../features/cartSlice"
+import { removeById,updateCart,updateSubTotal } from "../../features/cartSlice"
 import formatMoney from "../../utils/formatMoney"
 import './ProductCart.scss'
 export default function ProductCart({product,show=true}){
@@ -45,7 +45,7 @@ export default function ProductCart({product,show=true}){
 
     return(
         <div className="productCart">
-            <img className="product_img" src={product.data.mainimage.url} />
+            <img className="product_img" alt={product.data.alt} src={product.data.mainimage.url} />
             <div className="productDetailsCart">
                 <h2>{product.data.name}</h2>
                 <div>

@@ -11,7 +11,6 @@ import Loading from '../loading/loading';
 export default function SearchResult(){
     
     const search = new URLSearchParams(useLocation().search)
-    const [searchParams,setSearchParams] = useState()
     const [cards, setCards] = useState([])
     const [aux, setAux] = useState(false)
     const [auxAPI, setAuxAPI] = useState(false)
@@ -19,29 +18,23 @@ export default function SearchResult(){
     const [showCards, setShowCards] = useState([])
     const [,setCurrentPage] = useState(1)
     const [infoAPI,setInfoAPI] = useState({})
-    const [productsPerPage] = useState(20)
-    //const [data,setData] = useState()
-    //const [isLoading,setIsLoading] = useState()
-    const [infoSend, setInfoSend] = useState({
-        type:"product",
-        document: "document.type",
-        extra: `&q=[[fulltext(document,"")]]`,
-        size:40
-    })
+    const [productsPerPage] = useState(20)   
     
     
     const info = {
         type:"product",
         document: "document.type",
-        extra: `&q=[[fulltext(document,"${searchParams}")]]`,
+        extra: `&q=[[fulltext(document,"${search.get("q")}")]]`,
         size:40
     }
 
-    const renderSearch = ()=>{
 
-        const arr = Object.values(infoAPI)
+    const renderSearch = ()=>{
+        
+        const arr = Object.values(infoAPI)        
         setCards(arr.map((card)=>{
-            return <CardGrid key={card.id} id={card.id} url={card.data.mainimage.url} name={card.data.name} category={card.data.category.slug} price={card.data.price} alt={card.data.mainimage.alt} desc={card.data.short_description}></CardGrid>
+            //id={card.id} url={card.data.mainimage.url} name={card.data.name} category={card.data.category.slug} price={card.data.price} alt={card.data.mainimage.alt} desc={card.data.short_description}
+            return <CardGrid key={card.id} card={card} desc={true} ></CardGrid>
         }))
         setAux(true)
     }
@@ -59,35 +52,33 @@ export default function SearchResult(){
         setShowCards(currentProducts)
 
     }
-
-    const askInfo = ()=>{
-        
-    }
-
-    useEffect(()=>{
-        askInfo()
-    },[])
+   
 
     
     
     const {data, isLoading} = useFeaturedBanners(info);
     useEffect(()=>{
         
-        if(search.get("q")!==null){
-            setSearchParams(search.get("q"))
-            setCards([])
-            console.log('cambio la busqueda')
+        if(search.get("q")!==null){            
+                        
+            setAuxAPI(false)
+            setAux(false)
+            setInfoAPI({})
         }
-        
+        setCards([])
+            setShowCards([])
             
     },[search.get("q")])
 
     const results = data.results
+    
+    
         
     if(results!==undefined && !auxAPI){
-            console.log(results)
+            
             setInfoAPI(results.map(res => res))
             setAuxAPI(true)
+            
             
     }
     
@@ -114,8 +105,8 @@ export default function SearchResult(){
         
     }
     
-
-    if(!isLoading && showCards.length === 0 && cards.length > 0){ 
+    
+    if(!isLoading && showCards.length === 0 && cards.length > 0){         
         changePage(1)
     }
 
