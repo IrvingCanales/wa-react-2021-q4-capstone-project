@@ -5,13 +5,21 @@ import { Swiper, SwiperSlide } from "swiper/react/swiper-react";
 import SwipeCore,{Navigation,Pagination} from 'swiper'
 import 'swiper/swiper.scss';
 import "swiper/swiper-bundle.min.css";
+import {selectCart, addCart, updateCart} from '../../features/cartSlice'
+import { useSelector,useDispatch } from 'react-redux'
 
 import './productDetails.scss'
 import Loading from '../loading/loading';
 SwipeCore.use([Navigation,Pagination])
 export default function ProductDetails(){
     const [product,setProduct] = useState([])
-    const [images, setImages] = useState([])
+    const [images, setImages] = useState([])    
+    const [currStock,setCurrStock] = useState(1)
+    const [disabled,setDisabled] = useState(false)
+    const [textBtn, setTextBtn] = useState('Add cart')
+    const cart = useSelector(selectCart);
+    const dispatch = useDispatch();
+    //console.log(cart)
 
     const {id} = useParams();    
     const info = {
@@ -20,6 +28,57 @@ export default function ProductDetails(){
         extra: '',
         size:50
     }
+
+    const selectOptions = (stock) => {
+        const options = [];
+        for (let i = 1; i <= stock; i += 1) {
+          options.push(i);
+        }
+    
+        return options;
+    };
+    
+
+    const changeQty = (e,id) => {
+        
+        setCurrStock(e.target.value)
+        //dispatch(updateCart({id:id,order:Number(e.target.value)}))
+    
+        
+    };
+
+    
+
+    const addedCart = (e,stock)=>{
+        setTextBtn('Added')
+        setDisabled(true)   
+        
+        setTimeout(()=>{
+            setDisabled(false)   
+            setTextBtn('Add cart')
+        },2000)
+        
+        
+        
+        if(product[0].order === undefined){            
+            product[0].order=currStock
+            dispatch(addCart(product[0]))
+        }
+        else{            
+            
+            dispatch(addCart({id:product[0].id,order:Number(currStock)}))
+        }
+        
+                
+        //card["order"]=1
+                
+        if( Number(currStock) === stock){
+            setDisabled(true)   
+            setTextBtn('Out of stock')
+        }
+        
+    } 
+
     const { data, isLoading } = useFeaturedBanners(info);
     
     useEffect(()=>{
@@ -103,9 +162,20 @@ export default function ProductDetails(){
                         <label> Stock: <strong>{product[0].data.stock}</strong> </label>
                     </div>
                     <div>
-                    <input className="iptCart" type="number" label="cart"></input>
+                    <select
+                
+                defaultValue={product[0].data.order}
+                onChange={(e)=>changeQty(e,product[0].id)}
+                >
+        {selectOptions(product[0].data.stock).map((opt) => (
+          <option key={`${opt}`} value={opt}>
+            {opt}
+          </option>
+        ))}
+      </select>
+               
                     </div>
-                    <button className="btnCart" onClick={()=>alert('Not working yet')} >Add to Cart</button>
+                    { product[0].data.stock>0 ? <button disabled={disabled} className="btnCart" onClick={(e)=>addedCart(e,product[0].data.stock)} >{textBtn}</button> : null}
                 </div></>
             : <Loading></Loading>
 

@@ -1,0 +1,35 @@
+.checkOutPage{
+    height: max-content;
+    min-height: 400px;
+}
+
+.formCheckOut {
+    
+    min-width: 100px;
+    
+    padding: 20px 40px 40px 40px;
+    border-radius: 1px;
+    
+    background-color: #fefefe;
+    align-items: center;
+    
+  }
+
+  .infoCheckOut {
+    padding-bottom: 1em;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+  }
+  
+  .labelCheckOut {
+    margin-bottom: 0.5em;
+    color: black;
+    
+  }
+  
+  .inputCheckOut {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+    width: 100%;
+  }

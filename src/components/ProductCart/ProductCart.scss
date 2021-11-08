@@ -1,0 +1,26 @@
+.productCart{
+    display: flex;
+    background-color: white;
+    border-bottom: 1px solid #DDD;
+}
+
+
+.productDetailsCart{
+    flex:0.6;
+    display: inline;
+}
+
+.product_img{
+    object-fit: contain;
+    flex:0.4;
+    width: 180px;
+    height: 180px;
+}
+
+.btnRemove{
+    background-color: #ff2414;
+    border-color: #ff2414;
+    border-radius: 0.5rem;
+    color: white;
+    margin: 10px;
+}

@@ -7,6 +7,8 @@ import ProductList from './views/content/ProductList/ProductList';
 import { BrowserRouter,Switch,Route} from 'react-router-dom';
 import ProductDetails from './components/productDetails/productDetails';
 import SearchResult from './components/searchResult/searchResult';
+import Cart from './components/Cart/Cart';
+import CheckOutPage from './components/CheckOutPage/CheckOutPage';
 
 
 function App() {   
@@ -30,6 +32,12 @@ function App() {
           </Route>
           <Route exact path="/search">            
             <SearchResult />
+          </Route>
+          <Route exact path="/cart">
+            <Cart />
+          </Route>
+          <Route exact path="/checkout">
+            <CheckOutPage />
           </Route>
           <Route  path="*">
             <div><h1>Not found</h1></div>  
