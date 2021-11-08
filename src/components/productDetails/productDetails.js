@@ -5,8 +5,8 @@ import { Swiper, SwiperSlide } from "swiper/react/swiper-react";
 import SwipeCore,{Navigation,Pagination} from 'swiper'
 import 'swiper/swiper.scss';
 import "swiper/swiper-bundle.min.css";
-import {selectCart, addCart, updateCart} from '../../features/cartSlice'
-import { useSelector,useDispatch } from 'react-redux'
+import { addCart} from '../../features/cartSlice'
+import { useDispatch } from 'react-redux'
 
 import './productDetails.scss'
 import Loading from '../loading/loading';
@@ -17,7 +17,7 @@ export default function ProductDetails(){
     const [currStock,setCurrStock] = useState(1)
     const [disabled,setDisabled] = useState(false)
     const [textBtn, setTextBtn] = useState('Add cart')
-    const cart = useSelector(selectCart);
+    
     const dispatch = useDispatch();
     //console.log(cart)
 

@@ -1,19 +1,19 @@
 import PropTypes from "prop-types"
 import { Link } from "react-router-dom"
-import {useDispatch, useSelector} from 'react-redux'
-import {addCart,updateCart,selectCartById,selectedById} from '../../features/cartSlice'
-import { useEffect, useState } from "react"
+import {useDispatch} from 'react-redux'
+import {addCart,selectedById} from '../../features/cartSlice'
+import {  useState } from "react"
 
 
 CardGrid.propTypes = {
     card: PropTypes.object
 }
-export default function CardGrid({card}){
+export default function CardGrid({card,desc=false}){
     const dispatch = useDispatch();
     const [currStock,setCurrStock] = useState(1)
     const [disabled,setDisabled] = useState(false)
     const [textBtn, setTextBtn] = useState('Add cart')
-    const selectById = useSelector(selectCartById)    
+    
     
 //id={card.id} url={card.data.mainimage.url} name={card.data.name} category={card.data.category.slug} price={card.data.price} alt={card.data.mainimage.alt}
     const addedCart = (e,stock)=>{
@@ -23,9 +23,7 @@ export default function CardGrid({card}){
         setTimeout(()=>{
             setDisabled(false)   
             setTextBtn('Add cart')
-        },2000)
-
-        const num = card.order === undefined ? card.order : Number(currStock) + card.order        
+        },2000)        
         
         
         
@@ -79,7 +77,8 @@ export default function CardGrid({card}){
             </Link>
             <h3 >{card.data.name}</h3>
             <span>{card.data.category.slug}</span>
-            <p>${card.data.price}</p>            
+            <p>${card.data.price}</p>   
+            {desc ? <p>{card.data.short_description}</p> : null}
             <select
                 disabled={disabled}
                 defaultValue={card.data.order}

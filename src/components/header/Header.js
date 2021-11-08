@@ -18,12 +18,7 @@ export default function Header(){
         setSearch('')
     }
 
-    const handleEnter = (e)=>{
-        if (e.key === 'Enter') {
-            history.push({pathname:'/search',search:`?q=${search}`})
-            setSearch('')
-        }
-    }
+  
     
     return (
         <div className="header">
@@ -33,7 +28,7 @@ export default function Header(){
                 alt="img" /> 
             </Link>
             <form>
-            <input className="ipt" onChange={(e)=>setSearch(e.target.value)} onKeyDown={handleEnter} type="text" placeholder="Search product" ></input>
+            <input className="ipt" value={search} onChange={(e)=>setSearch(e.target.value)}  type="text" placeholder="Search product" ></input>
             <button className="btn_header" onClick={handleClick} >Search</button>
             </form>
             

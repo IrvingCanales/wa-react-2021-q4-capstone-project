@@ -1,13 +1,11 @@
-import { selectCart,selectSubTotal, updateSubTotal } from "../../features/cartSlice"
-import { useDispatch,useSelector } from "react-redux"
+import { selectCart,selectSubTotal } from "../../features/cartSlice"
+import { useSelector } from "react-redux"
 import ProductCart from "../ProductCart/ProductCart"
 import { Link } from "react-router-dom"
 import './Cart.scss'
-import { useEffect } from "react"
 import formatMoney from "../../utils/formatMoney"
 
-export default function Cart(){
-    const dispatch = useDispatch()
+export default function Cart(){    
     const cart = useSelector(selectCart)  
     const subtotal = useSelector(selectSubTotal)  
     
