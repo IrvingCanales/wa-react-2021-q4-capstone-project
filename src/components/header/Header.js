@@ -1,12 +1,15 @@
 
 import './header.scss'
-import cart from '../../cart-64.png'
+import cartImg from '../../cart-64.png'
 import { Link, useHistory } from 'react-router-dom'
 import { useState } from 'react'
+import { selectCart } from '../../features/cartSlice'
+import { useSelector } from 'react-redux'
 
 export default function Header(){
     const [search,setSearch] = useState('')
     let history = useHistory()
+    const cart = useSelector(selectCart)
 
     const handleClick = (e)=>{
         e.preventDefault()
@@ -34,8 +37,11 @@ export default function Header(){
             <button className="btn_header" onClick={handleClick} >Search</button>
             </form>
             
+            <Link to="/cart" className="cartHeader">                
+                    <span >{cart.length}</span>
+                    <img className="cartImg" src={cartImg} alt="cart"></img>                
+            </Link>
             
-            <img className="cart" src={cart} alt="cart"></img>
         </div>
     )
 }

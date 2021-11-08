@@ -22,7 +22,7 @@ export default function Carousel(){
         const results = data.results
         if(results!==undefined){            
             setImages(results.map((carousel)=>{
-                return <Link key={carousel.id} to={`products?category=${carousel.data.name}`}   ><ImageCarousel key={carousel.id} url={carousel.data.main_image.url} index={carousel.id} active={true} ></ImageCarousel><p className="imageName">{carousel.data.name}</p></Link>
+                return <Link key={carousel.id} to={`products?category=${carousel.data.name}`} style={{textDecoration:'none'}}  ><ImageCarousel key={carousel.id} url={carousel.data.main_image.url} index={carousel.id} active={true} ></ImageCarousel><p className="imageName">{carousel.data.name}</p></Link>
             }))
         }
         

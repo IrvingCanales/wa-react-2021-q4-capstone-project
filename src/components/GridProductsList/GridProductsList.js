@@ -49,7 +49,7 @@ export default function GridProductsList({filter}){
         const filtrado = categories.length>0 ? arr.filter(lis => categories.includes(lis.data.category.slug)) : arr        
         
         setCards(filtrado.map((card) => {
-            return <CardGrid key={card.id} id={card.id}  url={card.data.mainimage.url} name={card.data.name} category={card.data.category.slug} price={card.data.price} alt={card.data.mainimage.alt}></CardGrid>        
+            return <CardGrid key={card.id} card={card}></CardGrid>        
         }))
 
         if(filtrado.length === 0){

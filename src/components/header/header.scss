@@ -23,7 +23,13 @@
  outline: none;
 }
 
-.cart{
+.cartHeader{
+    color: #ffc914;
+    align-items: center;
+    text-decoration: none;
+}
+
+.cartImg{
     height: 35px;
     color: white;
     cursor: pointer;
