@@ -9,9 +9,11 @@ export default function Cart(){
     const cart = useSelector(selectCart)  
     const subtotal = useSelector(selectSubTotal)  
     
-    /*useEffect(()=>{
-        dispatch(updateSubTotal(0))
-    },[])*/
+    
+    if(subtotal<0){
+        throw new Error('Subtotal not possible')
+    }
+    
     const showProducts =   cart.map((pro)=>{                    
         return <ProductCart key={pro.id} product={pro}></ProductCart>      
     })
@@ -28,7 +30,7 @@ export default function Cart(){
             <h1>Total: {formatMoney(subtotal) }</h1>
             
             <Link to="/checkout">
-                <button className="btnCart">Proceed to checkout</button>
+               { cart.length>0 ? <button className="btnCart">Proceed to checkout</button> : null } 
             </Link>
             
         </div>
