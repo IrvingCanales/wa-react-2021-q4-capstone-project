@@ -7,9 +7,13 @@ import './CheckOutPage.scss'
 export default function CheckOutPage(){
     const cart = useSelector(selectCart)  
     const subtotal = useSelector(selectSubTotal)  
-    const showProducts =   cart.map((pro)=>{                    
-        return <ProductCart key={pro.id} product={pro} show={false}></ProductCart>      
-    })
+    const showProducts = 
+        cart.map((pro)=>{                    
+            return <ProductCart key={pro.id} product={pro} show={false}></ProductCart>      
+        })
+        
+    
+    
     return (
         <div className="checkOutPage">
             <h1>Summary order:</h1>
@@ -30,7 +34,7 @@ export default function CheckOutPage(){
                     </label>
                 <label className="labelCheckOut">
                     Order notes:
-                <textarea className="inputCheckOut" type="text" placeholder="Order Notes" />
+                <textarea className="inputCheckOut inputArea" type="text" placeholder="Order Notes" />
                 </label>
                 <Link to="/cart">
                 <button className="btnCart" style={{margin:'10px'}}>Go back to cart</button>

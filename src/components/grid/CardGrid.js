@@ -2,7 +2,7 @@ import PropTypes from "prop-types"
 import { Link } from "react-router-dom"
 import {useDispatch} from 'react-redux'
 import {addCart,selectedById} from '../../features/cartSlice'
-import {  useState } from "react"
+import {  useEffect, useRef, useState } from "react"
 
 
 CardGrid.propTypes = {
@@ -13,40 +13,41 @@ export default function CardGrid({card,desc=false}){
     const [currStock,setCurrStock] = useState(1)
     const [disabled,setDisabled] = useState(false)
     const [textBtn, setTextBtn] = useState('Add cart')
-    
-    
-//id={card.id} url={card.data.mainimage.url} name={card.data.name} category={card.data.category.slug} price={card.data.price} alt={card.data.mainimage.alt}
-    const addedCart = (e,stock)=>{
+    const [order,setOrder] = useState(0)   
+    const [clicked,setClicked] = useState(false)
+
+    useEffect(()=>{        
+            setOrder(order+Number(currStock))        
+    },[clicked])
+
+    const addedCart = (stock)=>{
         setTextBtn('Added')
-        setDisabled(true)   
+        setDisabled(true)           
+        setClicked(!clicked)           
         dispatch(selectedById(card.id))
         setTimeout(()=>{
             setDisabled(false)   
             setTextBtn('Add cart')
+            
+            if( Number(order) === stock ||  Number(order) > stock ||  Number(currStock) >= stock){
+                setDisabled(true)   
+                setTextBtn('Out of stock')
+            }
         },2000)        
         
         
-        
-        if(card.order === undefined){            
+        if(card.order === undefined){
             card.order=currStock
+            
             dispatch(addCart(card))
         }
-        else{            
+        else{
             
             dispatch(addCart({id:card.id,order:Number(currStock)}))
         }
-        
-                
-        //card["order"]=1
-                
-        if( Number(currStock) === stock){
-            setDisabled(true)   
-            setTextBtn('Out of stock')
-        }
-        
-    }    
 
-    
+          
+    }    
 
     const options = (stock) => {
         const options = [];

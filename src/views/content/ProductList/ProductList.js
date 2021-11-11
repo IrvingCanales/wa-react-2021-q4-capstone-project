@@ -6,10 +6,12 @@ import Siderbar from "../../../components/sidebar/Sidebar";
 import './ProductList.scss'
 import { useDispatch } from "react-redux";
 import { addCategory } from '../../../features/categoriesSlice';
+import { useCallback } from "react";
 
 
 export default function ProductList(){
     const [filter,setFilter] = useState([])
+    const [resp,setResp] = useState([])
     const [aux,setAux] = useState(false)    
     const category = new URLSearchParams(useLocation().search)
     
@@ -23,17 +25,12 @@ export default function ProductList(){
         setAux(true)
     }
         
-    
-    
+            
 
-    const handleFilter = (resp)=>{
-        
-                   
-            setFilter(resp)            
-                
-        
-        
-    }
+    const handleFilter = useCallback((resp)=>{
+        setFilter(resp)            
+    },[resp])
+    
 
     
 

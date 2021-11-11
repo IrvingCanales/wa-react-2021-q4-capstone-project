@@ -2,10 +2,10 @@
 import ImageCarousel from "./ImageCarousel";
 import { useFeaturedBanners } from '../../utils/hooks/useFeaturedBanners'
 import './Carousel.scss'
-import { useState, useEffect } from "react";
+import React,{ useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-export default function Carousel(){    
+function Carousel(){    
     //const results = CarouselData[0].results
     const [images,setImages] = useState()
     //const [results,setResults] = useState('')
@@ -37,3 +37,5 @@ export default function Carousel(){
         </div>
     )
 }
+
+export default React.memo(Carousel)

@@ -9,6 +9,7 @@ import ProductDetails from './components/productDetails/productDetails';
 import SearchResult from './components/searchResult/searchResult';
 import Cart from './components/Cart/Cart';
 import CheckOutPage from './components/CheckOutPage/CheckOutPage';
+import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
 
 
 function App() {   
@@ -34,7 +35,9 @@ function App() {
             <SearchResult />
           </Route>
           <Route exact path="/cart">
-            <Cart />
+            <ErrorBoundary>
+              <Cart />
+            </ErrorBoundary>
           </Route>
           <Route exact path="/checkout">
             <CheckOutPage />

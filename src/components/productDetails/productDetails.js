@@ -100,6 +100,8 @@ export default function ProductDetails(){
         }))
         
     }
+
+    console.log(product[0])
     
 
     const slider = images.length>0 ? 

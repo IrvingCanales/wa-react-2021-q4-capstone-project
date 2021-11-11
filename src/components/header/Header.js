@@ -9,7 +9,8 @@ import { useSelector } from 'react-redux'
 export default function Header(){
     const [search,setSearch] = useState('')
     let history = useHistory()
-    const cart = useSelector(selectCart)
+    const cart = useSelector(selectCart)    
+    let num =0
 
     const handleClick = (e)=>{
         e.preventDefault()
@@ -18,7 +19,16 @@ export default function Header(){
         setSearch('')
     }
 
-  
+    cart.map((ele)=>{
+        num += Number(ele.order)
+    })
+
+    
+    const showCart = cart.length>0 ?<> <Link to="/cart" className="cartHeader">                
+    <span >{num}</span>
+    <img className="cartImg" src={cartImg} alt="cart"></img>                
+</Link></> : <div className="cartHeader"><span >{num}</span>
+    <img className="cartImg" src={cartImg} alt="cart"></img></div>
     
     return (
         <div className="header">
@@ -32,10 +42,7 @@ export default function Header(){
             <button className="btn_header" onClick={handleClick} >Search</button>
             </form>
             
-            <Link to="/cart" className="cartHeader">                
-                    <span >{cart.length}</span>
-                    <img className="cartImg" src={cartImg} alt="cart"></img>                
-            </Link>
+            {showCart}
             
         </div>
     )

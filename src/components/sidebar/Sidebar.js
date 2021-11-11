@@ -71,13 +71,7 @@ export default function Siderbar({handleF,filter}){
     
     
     if( list.length>0 &&  categories.length === 0){
-        renderCategories()
-        /*setCategories(list.map((lis)=>{            
-            const active = arrCategories.includes(lis.data.name.toLocaleLowerCase()) ? 'active' : ''
-            return (<li key={lis.id}>
-                <a href={() => false} key={lis.id} className={`elements ${active}`} onClick={()=>handleClick(lis.data.name,active)}>{lis.data.name} </a>                
-                </li>)
-        }))*/
+        renderCategories()      
     }
 
 

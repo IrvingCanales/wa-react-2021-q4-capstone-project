@@ -1,13 +1,11 @@
-import { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import { useDispatch } from "react-redux"
 import { removeById,updateCart,updateSubTotal } from "../../features/cartSlice"
 import formatMoney from "../../utils/formatMoney"
 import './ProductCart.scss'
-export default function ProductCart({product,show=true}){
+function ProductCart({product,show=true}){
     const [order,setOrder] = useState(product.order)    
     const dispach = useDispatch()
-    
-
     const options = (stock) => {
         const options = [];
         for (let i = 1; i <= stock; i += 1) {
@@ -39,10 +37,6 @@ export default function ProductCart({product,show=true}){
     }
     
 
-    //console.log(options)
-    //<input iptCart disabled={!show ? 'disabled' : ''} onChange={(e)=>checkStock(e)} value={order} type="number" />    
-    
-
     return(
         <div className="productCart">
             <img className="product_img" alt={product.data.alt} src={product.data.mainimage.url} />
@@ -72,3 +66,5 @@ export default function ProductCart({product,show=true}){
         </div>
     )
 }
+
+export default React.memo(ProductCart)
